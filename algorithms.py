@@ -9,7 +9,7 @@ def greedy_algorithm(donuts, stomach):
     donuts_weight = 0
     eaten_donuts = []
     sorted_donuts = sorted(
-        donuts, key=operator.attrgetter('calories'))
+        donuts, key=operator.attrgetter('value_ratio'))
     size = stomach.get_stomach_capacity()
     
     while size >= 0 and sorted_donuts:

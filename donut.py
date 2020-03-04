@@ -7,6 +7,7 @@ class Donut():
         self.filling = filling
         self.calories = calories
         self.weight = weight
+        self.value_ratio = calories/weight
 
     def __repr__(self):
         repr = f"Filling: {self.filling}\n"
