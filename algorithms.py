@@ -76,10 +76,11 @@ def dynamic_algorithm(size, weight_tab, calories_tab, donuts_num):
         if chosen_donuts[i][free_space] == 1:
             donuts_indexes.append(i)
             free_space -= weight_tab[i-1]
+    total = size - free_space
     donuts_indexes.sort()
     donuts_indexes = [x-1 for x in donuts_indexes]
     
-    return solution_matrix[donuts_num][size], donuts_indexes
+    return solution_matrix[donuts_num][size], donuts_indexes, total
 
 
 def dynamic_solution(donuts, stomach):
@@ -91,12 +92,13 @@ def dynamic_solution(donuts, stomach):
     calories_tab = [donut.get_calories() for donut in donuts]
     size = stomach.get_stomach_capacity()
     donuts_num = len(donuts)
-    eaten_calories, donut_indexes = dynamic_algorithm(size, weight_tab, calories_tab, donuts_num)
+    eaten_calories, donut_indexes, total = dynamic_algorithm(size, weight_tab, calories_tab, donuts_num)
     eaten_donuts = [donuts[i] for i in donut_indexes]
     print("EATEN DONUTS:\n")
     for donut in eaten_donuts:
         print(repr(donut))
     print(f"Eaten calories: {eaten_calories}")
+    print(f"Total weight : {total}")
 
 
 def donut_generator(how_many):
