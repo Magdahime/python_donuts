@@ -1,4 +1,5 @@
 import random
+import json
 
 
 def give_filling():
@@ -25,7 +26,6 @@ def get_filling():
 
 
 def get_int(lower, upper, message):
-    
     number = input(message)
     while not str(number).isdigit() or int(number) < lower or int(number) > upper:
         print("\nSomething went wrong!")
@@ -34,3 +34,9 @@ def get_int(lower, upper, message):
         number = input("Try once again: ")
     return number
 
+
+def print_list(list1):
+    for x in range(len(list1)):
+        for y in range(len(list1[x])):
+            print(str(list1[x][y]), end=" ")
+        print("\n")
