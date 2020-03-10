@@ -6,20 +6,13 @@ import operator
 
 
 def greedy_solution(donuts, stomach):
-    method = "GREEDY METHOD:"
-    print("*" * len(method))
-    print(method)
-    print("*" * len(method))
     sorted_donuts = sorted(
         donuts, key=operator.attrgetter('value_ratio'))
     size = stomach.get_stomach_capacity()
 
     eaten_donuts, eaten_calories, donuts_weight = greedy_algorithm(size, sorted_donuts)
-
-    for donut in eaten_donuts:
-        print(repr(donut))
-    print(f"Eaten calories: {eaten_calories}")
-    print(f"Total weight: {donuts_weight}")
+    f.pretty_format("greedy algorithm",
+                    eaten_calories, donuts_weight, eaten_donuts)
 
 
 def greedy_algorithm(size, sorted_donuts):
@@ -52,17 +45,13 @@ def recursive_algorithm(size, weight_tab, calories_tab, donuts_num):
 
 
 def recursive_solution(donuts, stomach):
-    method = "RECURSIVE METHOD:"
-    print("*" * len(method))
-    print(method)
-    print("*" * len(method))
+    
     weight_tab = [donut.get_weight() for donut in donuts]
     calories_tab = [donut.get_calories() for donut in donuts]
     donuts_num = len(calories_tab)
     size = stomach.get_stomach_capacity()
     eaten_calories = recursive_algorithm(size, weight_tab, calories_tab, donuts_num)
-
-    print(f"Eaten calories: {eaten_calories}")
+    f.pretty_format("recursive algorithm", eaten_calories)
 
 
 def dynamic_algorithm(size, weight_tab, calories_tab, donuts_num):
@@ -97,21 +86,14 @@ def dynamic(size, weight_tab, calories_tab, donuts_num):
 
 
 def dynamic_solution(donuts, stomach):
-    method = "DYNAMIC PROGRAMMING METHOD:"
-    print("*" * len(method))
-    print(method)
-    print("*" * len(method))
+
     weight_tab = [donut.get_weight() for donut in donuts]
     calories_tab = [donut.get_calories() for donut in donuts]
     size = stomach.get_stomach_capacity()
     donuts_num = len(donuts)
     eaten_calories, donut_indexes, total = dynamic(size, weight_tab, calories_tab, donuts_num)
     eaten_donuts = [donuts[i] for i in donut_indexes]
-    print("EATEN DONUTS:\n")
-    for donut in eaten_donuts:
-        print(repr(donut))
-    print(f"Eaten calories: {eaten_calories}")
-    print(f"Total weight : {total}")
+    f.pretty_format("dynamic algorithm", eaten_calories, total, eaten_donuts)
 
 
 def donut_generator(how_many):
@@ -123,6 +105,19 @@ def donut_generator(how_many):
     return donuts
 
 
+def get_parameters(stomach_size, how_many):
+
+    stomach = Stomach(stomach_size)
+    donuts = donut_generator(how_many)
+    weight_tab = [donut.get_weight() for donut in donuts]
+    calories_tab = [donut.get_calories() for donut in donuts]
+    donuts_num = len(calories_tab)
+    size = stomach.get_stomach_capacity()
+    sorted_donuts = sorted(
+        donuts, key=operator.attrgetter('value_ratio'))
+    return donuts, weight_tab, calories_tab, donuts_num, size, sorted_donuts
+
+
 def algorithm_test():
     stomach = Stomach(400)
     donuts = donut_generator(20)
@@ -131,44 +126,42 @@ def algorithm_test():
     dynamic_solution(donuts, stomach)
 
 
-def measure_time(func, algorithm_name, how_many,
+def measure_time(func, algorithm_name, iterations,
                  size, weight_tab, calories_tab, donuts_num, sorted_donuts=[]):
+
     message = "Time of repeating " + algorithm_name + " algorithm "
-    message += str(how_many) + " times:"
+    message += str(iterations) + " times:"
     stars = "*" * len(message)
     elapsed_time = 0
     print(stars)
     print(message)
     if algorithm_name == "greedy":
         greedy_start = timer()
-        for x in range(how_many):
+        for x in range(iterations):
             func(size, sorted_donuts)
         greedy_end = timer()
         elapsed_time = greedy_end - greedy_start
     else:
         algorithm_start = timer()
-        for x in range(how_many):
+        for x in range(iterations):
             func(size, weight_tab, calories_tab, donuts_num)
         algorithm_end = timer()
         elapsed_time = algorithm_end - algorithm_start
     print(elapsed_time)
     print(stars + "\n")
-    
-
-def time_test(how_many):
-
-    stomach = Stomach(400)
-    donuts = donut_generator(40)
-    weight_tab = [donut.get_weight() for donut in donuts]
-    calories_tab = [donut.get_calories() for donut in donuts]
-    donuts_num = len(calories_tab)
-    size = stomach.get_stomach_capacity()
-    sorted_donuts = sorted(
-        donuts, key=operator.attrgetter('value_ratio'))
-
-    measure_time(greedy_algorithm, "greedy", 500, size, weight_tab, calories_tab, donuts_num, sorted_donuts)
-    measure_time(recursive_algorithm, "recursive", 500, size, weight_tab, calories_tab, donuts_num)
-    measure_time(dynamic_algorithm, "dynamic", 500, size, weight_tab, calories_tab, donuts_num)
 
 
-time_test(500)
+def time_test(stomach_size, how_many, iterations):
+
+    param = get_parameters(stomach_size, how_many)
+    (donuts, weight_tab, calories_tab, donuts_num, size, sorted_donuts) = param
+    measure_time(greedy_algorithm, "greedy", iterations, size, 
+                 weight_tab, calories_tab, donuts_num, sorted_donuts)
+    measure_time(recursive_algorithm, "recursive", iterations, size,
+                 weight_tab, calories_tab, donuts_num)
+    measure_time(dynamic_algorithm, "dynamic", iterations, size,
+                 weight_tab, calories_tab, donuts_num)
+
+
+time_test(500, 40, 500)
+algorithm_test()

@@ -9,14 +9,11 @@ class Donut():
         self.weight = weight
         self.value_ratio = calories/weight
 
-    def __repr__(self):
-        repr = f"Filling: {self.filling}\n"
-        repr += f"Calories: {self.calories}\n"
-        repr += f"Weight: {self.weight}\n"
-        return repr
-
     def __str__(self):
-        return f"A delicious donut with {self.filling} filling! Yummy!"
+        donut = f"Filling: {self.filling}\n"
+        donut += f"Calories: {self.calories}\n"
+        donut += f"Weight: {self.weight}\n"
+        return donut
 
     def get_weight(self):
         return self.weight

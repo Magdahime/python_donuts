@@ -40,3 +40,16 @@ def print_list(list1):
         for y in range(len(list1[x])):
             print(str(list1[x][y]), end=" ")
         print("\n")
+
+
+def pretty_format(algorithm_name, eaten_calories, donuts_weight=0, donuts=[]):
+    stars = "*" * len(algorithm_name)
+    print(stars)
+    print(algorithm_name.upper())
+    print(stars)
+    if donuts and donuts_weight:
+        print("Eaten donuts:")
+        for donut in donuts:
+            print(donut)
+        print(f"Total weight: {donuts_weight}")
+    print(f"Eaten calories: {eaten_calories} \n")
