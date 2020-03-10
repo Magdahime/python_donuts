@@ -42,7 +42,8 @@ def print_list(list1):
         print("\n")
 
 
-def pretty_format(algorithm_name, eaten_calories, donuts_weight=0, donuts=[]):
+def algorithm_des(algorithm_name, eaten_calories, donuts_weight=0, donuts=[]):
+    """Helps describe results of an algorithm"""
     stars = "*" * len(algorithm_name)
     print(stars)
     print(algorithm_name.upper())
@@ -53,3 +54,14 @@ def pretty_format(algorithm_name, eaten_calories, donuts_weight=0, donuts=[]):
             print(donut)
         print(f"Total weight: {donuts_weight}")
     print(f"Eaten calories: {eaten_calories} \n")
+
+
+def time_test_des(algorithm_name, iterations, elapsed_time):
+    """Helps describe result of time test"""
+    message = "Time of repeating " + algorithm_name + " algorithm "
+    message += str(iterations) + " times:"
+    stars = "*" * len(message)
+    print(stars)
+    print(message)
+    print(elapsed_time)
+    print(stars + "\n")
