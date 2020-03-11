@@ -101,7 +101,7 @@ def donut_generator(how_many):
     donuts = []
     for x in range(how_many):
         donuts.append(
-            Donut(f.give_int(50, 250), f.give_int(150, 350), f.give_filling()))
+            Donut(f.give_int(30, 100), f.give_int(150, 350), f.give_filling()))
     return donuts
 
 
@@ -126,10 +126,10 @@ def algorithm_test():
     dynamic_solution(donuts, stomach)
 
 
-def measure_time(func, algorithm_name, iterations,
+def measure_time(func,  iterations,
                  size, weight_tab, calories_tab, donuts_num, sorted_donuts=[]):
     elapsed_time = 0
-    if algorithm_name == "greedy":
+    if func == greedy_algorithm:
         greedy_start = timer()
         for x in range(iterations):
             func(size, sorted_donuts)
@@ -161,5 +161,27 @@ def time_test(stomach_size, how_many, iterations):
     f.time_test_des("dynamic", iterations, dynamic)
 
 
-time_test(500, 40, 500)
-algorithm_test()
+def gather_information(algorithm, max_size, min_size, how_many, iterations):
+
+    if algorithm == "greedy":
+        func = greedy_algorithm
+    elif algorithm == "recursive":
+        func = recursive_algorithm
+    else:
+        func = dynamic_algorithm
+    
+    results = []
+    stomach_sizes = []
+    param = get_parameters(min_size, how_many)
+    (donuts, weight_tab, calories_tab, donuts_num, size, sorted_donuts) = param
+    while size <= max_size:
+        stomach_sizes.append(size)
+        result = measure_time(func, iterations, size, weight_tab,
+                      calories_tab, donuts_num, sorted_donuts)
+        results.append(round(result, 4))
+        size += 10
+    return results, stomach_sizes
+
+
+gather_information("dynamic", 400, 100, 60, 100)
+        
