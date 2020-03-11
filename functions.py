@@ -32,7 +32,7 @@ def get_int(lower, upper, message):
         print("Remember: it cannot contain any letters")
         print(f"And it has to be a number between {lower} and {upper}")
         number = input("Try once again: ")
-    return number
+    return int(number)
 
 
 def print_list(list1):
