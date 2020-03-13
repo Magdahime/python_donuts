@@ -4,6 +4,14 @@ from donut import Donut
 from stomach import Stomach
 
 
+def algorithm_test():
+    stomach = Stomach(400)
+    donuts = alg.donut_generator(20)
+    alg.greedy_solution(donuts, stomach)
+    alg.recursive_solution(donuts, stomach)
+    alg.dynamic_solution(donuts, stomach)
+
+
 def time_test(stomach_size, how_many, iterations):
 
     param = alg.get_parameters(stomach_size, how_many)

@@ -183,14 +183,6 @@ def get_parameters(stomach_size, how_many):
     return donuts, weight_tab, calories_tab, donuts_num, size, sorted_donuts
 
 
-def algorithm_test():
-    stomach = Stomach(400)
-    donuts = donut_generator(20)
-    greedy_solution(donuts, stomach)
-    recursive_solution(donuts, stomach)
-    dynamic_solution(donuts, stomach)
-
-
 def measure_time(func,  iterations,
                  size, weight_tab, calories_tab, donuts_num, sorted_donuts=[]):
     elapsed_time = 0

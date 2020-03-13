@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt  
 import algorithms as alg
 
+
 def plot_time_graph(algorithm):
     iterations = alg.get_int(10, 10000, "How many times you want to execute your algorithm?: ")
     max_size = alg.get_int(200, 500, "Maximum stomach capacity: ")
@@ -9,7 +10,7 @@ def plot_time_graph(algorithm):
     params = alg.gather_information(algorithm, 
                                     max_size, min_size, how_many, iterations)
     results, stomach_sizes = params
-    
+
     fig = plt.figure(dpi=128, figsize=(10, 6))
     plt.style.use('ggplot')
     title = "Time of executing " + algorithm + " algorithm "
